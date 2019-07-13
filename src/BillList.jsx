@@ -6,29 +6,30 @@ import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
 export default (props) => {
-  const {billArray, setBillArray} = props;
+  const {billArray, setBillArray, deleteBill} = props;
   const [billStart, setBillStart] = useState(null);
   const [billEnd, setBillEnd] = useState(null);
   const [billAmount, setBillAmount] = useState(0);
   const [billName, setBillName] = useState("");
   const [addingBill, setAddingBill] = useState(false);
 
-  const billsList = billArray.map((bill) => {
+  const billsList = billArray.map((bill, index) => {
     return (
         <div style={{display: "flex", padding: 40}}>
             <h3>{`${bill.billName}: $${bill.billAmount}, From: ${bill.billStart.toLocaleDateString()}, To: ${bill.billEnd.toLocaleDateString()}, Bill Days: ${bill.billDays}`} </h3>
+            <div style={{paddingLeft: 20}}><Button onClick={() => deleteBill(index)}>Delete</Button></div>            
         </div>
     );
   });
 
   function updateBillAmount(event) {
-    const numbers = /^[0-9.]+$/;
+    const numbers = /^[0-9]{1,}(\.[0-9]+)?$/;
     let value = event.target.value;
     if (value.match(numbers)) {
-      value = parseFloat(value);
+      if(value.length > 1 && value[0] === "0"){
+          value = value.slice(1);
+      }
       setBillAmount(value);
-    }else if(value === ""){
-        setBillAmount(0);
     }
   }
 
@@ -36,7 +37,7 @@ export default (props) => {
       if(billStart === null || billEnd === null || billAmount <= 0){
           return;
       }
-      const billDays = (billEnd - billStart) / 1000 / 60 / 60 / 24 + 1;
+      const billDays = parseInt((billEnd - billStart) / 1000 / 60 / 60 / 24 + 1);
       
       if(billDays <= 0){
           setBillStart(null);
@@ -46,7 +47,7 @@ export default (props) => {
 
       const newBill = {
           billName: billName ? billName : `Untitled Bill ${billArray.length + 1}`,
-          billAmount,
+          billAmount: parseFloat(billAmount),
           billStart,
           billEnd,
           billDays
@@ -66,6 +67,7 @@ export default (props) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <div style={{ marginTop: 40 }}>
+          
         <Paper>
           <h1 style={{padding: 20}}>Please Enter Your Bills</h1>
           {billsList}
