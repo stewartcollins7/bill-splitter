@@ -92,11 +92,11 @@ export default props => {
     } else {
       if (housemate.moveInDate) {
         durationString =
-          "Moved in " + housemate.moveInDate.toLocaleDateString();
+          "Moved in " + housemate.moveInDate.toLocaleDateString("en-AU");
       }
       if (housemate.moveOutDate) {
         durationString +=
-          " Moved out " + housemate.moveOutDate.toLocaleDateString();
+          " Moved out " + housemate.moveOutDate.toLocaleDateString("en-AU");
       }
     }
     return (
@@ -108,7 +108,7 @@ export default props => {
 
   return (
     <div style={{ margin: 40 }}>
-        <h1 style={{padding: 20}}>The Damage</h1>
+        <h1 style={{padding: 20, color: "white"}}>The Damage</h1>
       <Paper>
         <h1>All Bills Totals</h1>
         {allBillTotals}

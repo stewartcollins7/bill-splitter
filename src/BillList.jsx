@@ -16,7 +16,7 @@ export default (props) => {
   const billsList = billArray.map((bill, index) => {
     return (
         <div style={{display: "flex", padding: 40}}>
-            <h3>{`${bill.billName}: $${bill.billAmount}, From: ${bill.billStart.toLocaleDateString()}, To: ${bill.billEnd.toLocaleDateString()}, Bill Days: ${bill.billDays}`} </h3>
+            <h3>{`${bill.billName}: $${bill.billAmount}, From: ${bill.billStart.toLocaleDateString("en-AU")}, To: ${bill.billEnd.toLocaleDateString("en-AU")}, Bill Days: ${bill.billDays}`} </h3>
             <div style={{paddingLeft: 20}}><Button onClick={() => deleteBill(index)}>Delete</Button></div>            
         </div>
     );

@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Paper from "@material-ui/core/Paper";
-import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Input from "@material-ui/core/Input";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { FormGroup } from "@material-ui/core";
-import BillList from "./BillList";
-import HousemateList from "./HousemateList";
-import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles } from "@material-ui/core/styles";
@@ -43,11 +36,11 @@ export default props => {
           <div style={{ display: "flex", padding: 20 }}>
             {housemate.moveInDate && (
               <h3 style={{ paddingRight: 20 }}>
-                Moved In: {housemate.moveInDate.toLocaleDateString()}
+                Moved In: {housemate.moveInDate.toLocaleDateString("en-AU")}
               </h3>
             )}
             {housemate.moveOutDate && (
-              <h3>Moved Out: {housemate.moveOutDate.toLocaleDateString()}</h3>
+              <h3>Moved Out: {housemate.moveOutDate.toLocaleDateString("en-AU")}</h3>
             )}
           </div>
         ) : (
